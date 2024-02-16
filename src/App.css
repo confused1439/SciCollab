@@ -1,31 +1,26 @@
-.App {
-  text-align: center;
+:root {
+  --overall-text: 'Fira Sans Extra Condensed', sans-serif;
+  --text-type-light: 300;
+  --text-type-regular: 400;
+  --text-type-medium: 500;
+  --text-type-semibold: 600;
+  --text-type-bold: 700;
+  --text-type-extrabold: 800;
+  --text-type-black: 900;
+  --text-color: hsl(0, 0%, 12%);
+  --background-color: hsl(58, 100%, 95%);
+  --border-color: hsl(0, 0%, 67%);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.parent_div {
+  background-color: var(--background-color);
+  height: 100vh;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
