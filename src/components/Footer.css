@@ -1,0 +1,65 @@
+@import url("./style.css");
+
+.list a,
+.logo_and_heading a,
+.social_media_icons a {
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+.footer {
+  display: grid;
+  align-items: center;
+  margin-top: 50px;
+  padding-block: 100px;
+  height: 70vh;
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+.logo_and_heading > svg {
+  width: auto;
+  height: 80px;
+  position: relative;
+  bottom: 26px;
+  animation: rotate 7s linear infinite;
+}
+
+.logo_and_heading > a {
+  margin-left: 14px;
+  font-size: 5.4rem;
+  font-weight: var(--text-type-black);
+}
+
+.container {
+  display: grid;
+  gap: 24px;
+  padding-bottom: 89px;
+  border-bottom: 0.5px solid var(--background-color);
+  grid-template-columns: 40% 20% 20% 20%;
+  justify-content: center;
+}
+
+.list {
+  display: grid;
+  align-items: start;
+}
+
+.social_media_icons {
+  display: grid;
+  width: 80%;
+  position: relative;
+  top: 20%;
+  justify-content: space-around;
+  grid-template-columns: auto auto auto auto;
+}
+
+.social_media_icons svg {
+  height: 30px;
+}
+
+.copyright h4 {
+  text-align: center;
+  letter-spacing: 0.2rem;
+  margin-top: 50px;
+}

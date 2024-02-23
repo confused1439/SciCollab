@@ -1,49 +1,54 @@
-@import url(../App.css);
+@import url("./style.css");
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: var(--overall-text);
-}
-
-.hsd_child > h1 {
-    font-size: 3rem;
-    text-align: justify;
-    margin: 50px 0 20px 0;
-    font-family: var(--text-type-extrabold);
-}
-
-.hsd_child > p {
-    font-size: 1.5rem;
-    text-align: justify;
-    font-weight: var(--text-type-regular);
-}
-
-.hero-section_img > img {
-    width: 700px;
+i {
+  margin-right: 10px;
 }
 
 .main_container {
-    display: flex;
-    gap: 50px;
-    margin: 0 100px;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  gap: 100px;
+  height: 80vh;
+  margin: 0 100px;
+  justify-content: center;
+  align-items: center;
 }
 
+.hsd_child > h1 {
+  font-size: 3rem;
+  text-align: justify;
+  margin: 50px 0 20px 0;
+  font-family: var(--text-type-extrabold);
+}
 
+.hsd_child > p {
+  font-size: 1.5rem;
+  text-align: justify;
+  font-weight: var(--text-type-regular);
+}
+
+.hero-section_img > img {
+  width: 500px;
+}
+
+.registerBtn {
+  position: relative;
+  display: flex;
+  gap: 80px;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 .btn {
-    font-size: 1.2rem;
-    font-weight: var(--text-type-medium);
-    background: #fbf9ca;
-    border: 1px solid #c3c3c3;
-    transition: color 0.3s ease-in-out;
+  font-size: 1.2rem;
+  font-weight: var(--text-type-medium);
+  background: #fbf9ca;
+  border: 1px solid #c3c3c3;
+  transition: color 0.3s ease-in-out;
 }
 
 .btn:hover {
-    background-color: var(--text-color);
-    color: var(--background-color);
-    border-color: transparent;
+  background-color: var(--text-color);
+  color: var(--background-color);
+  border-color: transparent;
 }

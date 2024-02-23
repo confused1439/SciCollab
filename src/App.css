@@ -1,33 +1,15 @@
-:root {
-  --overall-text: 'Fira Sans Extra Condensed', sans-serif;
-  --text-type-light: 300;
-  --text-type-regular: 400;
-  --text-type-medium: 500;
-  --text-type-semibold: 600;
-  --text-type-bold: 700;
-  --text-type-extrabold: 800;
-  --text-type-black: 900;
-  --text-color: hsl(0, 0%, 12%);
-  --background-color: hsl(58, 100%, 95%);
-  --border-color: hsl(0, 0%, 67%);
+@import url(./components/style.css);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--overall-text);
 }
 
 .parent_div {
   background-color: var(--background-color);
-  height: 100vh;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  display: grid;
+  justify-content: center;
+  gap: 20px;
 }

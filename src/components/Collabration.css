@@ -1,60 +1,130 @@
-.container {
-    position: relative;
-    width: 1100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-warp: warp;
-    padding: 30px;
+@import url("./style.css");
+
+.mainContainer {
+  display: grid;
+  height: fit-content;
+  margin: 80px 100px;
+  gap: 50px;
+  justify-items: center;
 }
 
-.container .card {
-    position: relative;
-    max-width: 305px;
-    height: 200px;
-    background-color: #fff;
-    margin: 30px 10px;
-    padding: 20px 15px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-    transition: 0.3s ease-in-out;
-    border-radius: 15px;
+.mainContainer h1 {
+  font-size: 3.5rem;
 }
 
-.container .card:hover {
-    height: 340px;
+.desc_container h1,
+p {
+  text-align: center;
 }
 
-.container .card .image {
-    position: relative;
-    width: 260px;
-    top: -40%;
-    left: 8px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+.desc_container h1 {
+  font-size: 3.3rem;
+  font-weight: var(--text-type-bold);
 }
 
-.container .card .image img {
-    width: inherit;
-    border-radius: 15px;
+.desc_container p {
+  font-size: 1.5rem;
 }
 
-.container .card .content {
-    position: relative;
-    top: -140px;
-    padding: 10px 15px;
-    color: #111;
-    text-align: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: 0.3s ease-in-out;
-
+.cards {
+  display: grid;
+  width: inherit;
+  grid-template-columns: auto auto;
+  justify-items: center;
+  align-items: center;
+  gap: inherit;
 }
 
-.container .card:hover .content {
-    margin-top: 30px;
-    visibility: visible;
-    opacity: 1;
-    transition-delay: 0.2s;
+.card {
+  width: 350px;
+  height: 350px;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.txt {
+  line-height: 2;
+  font-size: 1.1rem;
+  opacity: 0;
+  transition: 0.5s 0.25s;
+}
+
+.thumb1 {
+  background: url(../images/hand-edu.jpg) no-repeat center;
+}
+.thumb2 {
+  background: url(../images/thoughts.jpg) no-repeat center;
+}
+.thumb3 {
+  background: url(../images/confused-umbrella.jpg) no-repeat center;
+}
+.thumb4 {
+  background: url(../images/head-planet.png) no-repeat center;
+}
+
+.thumb {
+  width: auto;
+  height: 350px;
+  background-size: cover;
+  border-radius: 3px;
+}
+
+.infos {
+  height: 350px;
+  position: absolute;
+  display: grid;
+  grid-template-rows: 20% 60% 20%;
+  align-items: center;
+  padding: 20px 24px;
+  background-color: var(--text-color);
+  color: var(--background-color);
+  transition: 0.4s cubic-bezier(0.17, 0.67, 0.5, 1.03) 0.15s;
+  top: 95%;
+}
+
+.infos p {
+  text-align: left;
+}
+
+.infos a {
+  position: absolute;
+  left: -20px;
+  bottom: 15px;
+  margin: 10px 0;
+  padding: 20px 24px;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--background-color);
+  position: relative;
+  text-decoration: none;
+}
+
+.infos a::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 4px;
+  border-radius: 4px;
+  background-color: var(--background-color);
+  bottom: 12px;
+  left: 24px;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.infos a:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+.card:hover .infos {
+  transform: translateY(-333px);
+}
+
+.card:hover .infos,
+.card:hover .infos .txt,
+.card:hover .infos .details {
+  opacity: 1;
 }

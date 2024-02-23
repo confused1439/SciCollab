@@ -1,0 +1,119 @@
+@import url("./style.css");
+
+.sci_grovists_a_tag {
+  position: absolute;
+  left: -20px;
+  bottom: 0px;
+  padding: 20px 24px;
+  font-size: 1rem;
+  font-weight: var(--text-type-semibold);
+  letter-spacing: 1px;
+  color: var(--background-color);
+  position: relative;
+  text-decoration: none;
+}
+
+.sci_grovists_a_tag::before {
+  content: "";
+  position: absolute;
+  width: 85%;
+  height: 4px;
+  border-radius: 4px;
+  background-color: var(--background-color);
+  bottom: 12px;
+  left: 24px;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sci_grovists_a_tag:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+.parent {
+  margin: 0px 100px;
+  display: grid;
+  row-gap: 100px;
+}
+
+.child1 {
+  display: flex;
+  gap: 60px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  padding: 50px;
+  height: fit-content;
+  border: 1px solid #dbdbdb;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.desc h3 {
+  text-align: left;
+  margin-bottom: 40px;
+  font-size: 3.3rem;
+  font-weight: var(--text-type-bold);
+}
+
+.desc p {
+  text-align: justify;
+  font-size: 1.3rem;
+}
+
+.image {
+  width: 340px;
+}
+
+.image > img {
+  width: inherit;
+  border: none;
+}
+
+.child2 {
+  display: flex;
+  width: inherit;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  font-size: 3.3rem;
+  font-weight: var(--text-type-bold);
+  text-align: center;
+}
+
+.card {
+  display: grid;
+  height: 375px;
+  grid-template-rows: auto auto;
+}
+
+.card_1 {
+  position: relative;
+  padding: 40px 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.card_1 h3 {
+  font-weight: var(--text-type-bold);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+}
+
+.card_2 {
+  padding: 40px 20px;
+  font-size: 1.2rem;
+  text-align: left;
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+.card_2 p {
+  text-align: justify;
+  margin-bottom: 40px;
+}
