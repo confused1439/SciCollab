@@ -1,17 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsArrowUpRight } from "react-icons/bs";
 import googleIcon from "../assets/google.png";
 import linkedInIcon from "../assets/linkedin.png";
 import faceBookIcon from "../assets/facebook-app-symbol.png";
 
 export default function HeroSection() {
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
+    event.preventDefault();
 
     const form = event.target;
     const alertDiv = form.querySelector("#loginAlert");
-    const formData = new FormData(form); // Get form data
+    const formData = new FormData(form);
     const email = formData.get("email");
     const password = formData.get("password");
 
@@ -22,21 +24,20 @@ export default function HeroSection() {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json(); // Parse JSON response
+      const data = await response.json();
 
       if (response.ok) {
-        // Check if the response is successful (status code 200-299)
-        alertDiv.classList.remove("alert-danger", "alert-warning"); // Reset alert color
+        alertDiv.classList.remove("alert-danger", "alert-warning");
         alertDiv.classList.add("alert-success");
         alertDiv.textContent = "Login successful. Redirecting...";
         console.log("Login successful!");
 
+        // Update the header with the user's username
         setTimeout(() => {
-          window.location.href = data.redirectUrl;
-        }, 1400);
+          navigate(data.redirectUrl, { state: { userName: data.userName } });
+        }, 1400); // Delay redirection by 1.4 seconds
       } else {
         if (data.alert) {
-          // Check if the server sent an alert message
           alertDiv.classList.remove("alert-success");
           if (data.alert.type === "danger") {
             alertDiv.classList.add("alert-danger");

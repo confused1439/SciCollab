@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Markdown Forum</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+  </head>
+  <body>
+    <h1>Markdown Forum</h1>
+
+    <div id="forum-container">
+      <h2>New Post</h2>
+      <textarea
+        id="post-content"
+        rows="10"
+        placeholder="Write your post in Markdown..."
+      ></textarea>
+      <button onclick="postToForum()">Submit</button>
+
+      <h2>Forum Posts</h2>
+      <div id="forum-posts"></div>
+    </div>
+
+    <script>
+      function postToForum() {
+        const postContent = document.getElementById("post-content").value;
+        const forumPosts = document.getElementById("forum-posts");
+
+        // Convert Markdown to HTML using Showdown
+        const converter = new showdown.Converter();
+        const html = converter.makeHtml(postContent);
+
+        // Create a new div to hold the post
+        const postDiv = document.createElement("div");
+        postDiv.classList.add("forum-post");
+        postDiv.innerHTML = html;
+
+        // Add the new post to the forum
+        forumPosts.appendChild(postDiv);
+
+        // Clear the textarea
+        document.getElementById("post-content").value = "";
+      }
+    </script>
+
+    <style>
+      .forum-post {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </body>
+</html>

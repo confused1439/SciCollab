@@ -65,7 +65,6 @@ module.exports = {
     }
   },
 
-  //   Login
   async login(req, res) {
     const { email, password } = req.body;
 
@@ -96,9 +95,12 @@ module.exports = {
         expiresIn: "1h",
       });
 
-      const redirectUrl = `/user-profile?email=${encodeURIComponent(email)}`;
+      const redirectUrl = `/user-profile?userId=${encodeURIComponent(
+        user._id
+      )}`;
 
       res.status(200).json({
+        userName: user.username,
         success: true,
         redirectUrl,
         token,
@@ -110,16 +112,33 @@ module.exports = {
       res.status(500).json({ error: "Internal server error" });
     }
   },
+
   //   Logout
   logout(req, res) {
-    // You can implement logout logic here, such as destroying session or JWT token
-    // For example, if using JWT, you could simply invalidate the token on the client side.
-    // Here, we assume clearing the token from the client-side is sufficient.
-
     // Respond with a success message
     res.status(200).json({
       success: true,
       message: "Logout successful",
     });
+  },
+
+  //Search
+  async search(req, res) {
+    const { query } = req.body;
+
+    try {
+      // Search for users with matching username or email
+      const results = await UserModel.find({
+        $or: [
+          { username: { $regex: query, $options: "i" } }, // Case-insensitive regex match for username
+          { email: { $regex: query, $options: "i" } }, // Case-insensitive regex match for email
+        ],
+      });
+
+      res.status(200).json({ success: true, results });
+    } catch (error) {
+      console.error("Error searching users:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
   },
 };
