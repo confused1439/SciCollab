@@ -1,3 +1,4 @@
+import { ChakraProvider } from "@chakra-ui/react";
 import Project from "./Components/Project";
 import DataSharing from "./Components/DataSharing";
 import Header from "./Components/Header";
@@ -12,19 +13,21 @@ import "./styles/App.scss";
 
 export default function App() {
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/project" element={<Project />} />
-        <Route path="/data-sharing" element={<DataSharing />} />
-        <Route path="/discussion" element={<Discussion />} />
-        <Route path="/dummy" element={<Dummy />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/user-profile" element={<Profile />} />
-        <Route path="*" element={<h1>Page not found 404!</h1>} />
-      </Routes>
-      <Footer />
-    </Router>
+    <ChakraProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/project" element={<Project />} />
+          <Route path="/data-sharing" element={<DataSharing />} />
+          <Route path="/discussion" element={<Discussion />} />
+          <Route path="/dummy" element={<Dummy />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/user-profile" element={<Profile />} />
+          <Route path="*" element={<h1>Page not found 404!</h1>} />
+        </Routes>
+        <Footer />
+      </Router>
+    </ChakraProvider>
   );
 }

@@ -73,7 +73,12 @@ export default function Discussion() {
   };
 
   return (
-    <main className="container d-flex flex-wrap my-5 py-5 vw-100">
+    <main
+      className=" main px-5 py-5 d-flex flex-wrap w-100"
+      style={{
+        backgroundColor: "hsl(215, 17%, 20%)",
+      }}
+    >
       <div
         className="d-flex"
         id="headline"
@@ -112,7 +117,7 @@ export default function Discussion() {
             flex: "0 0 31%",
             background: "none",
             position: "relative",
-            top: "45px",
+            top: "25px",
             left: "45px",
             transform: "rotate(-14deg)",
           }}
@@ -125,22 +130,22 @@ export default function Discussion() {
           <Clover
             color="#e25085"
             size={75}
-            style={{ position: "relative", top: "7px", left: "265px" }}
+            style={{ position: "relative", bottom: "70px", left: "370px" }}
           />
           <PencilLine
             color="hsl(338, 72%, 60%)"
             size={75}
-            style={{ position: "relative", top: "95px", left: "55px" }}
+            style={{ position: "relative", bottom: "-50px", left: "185px" }}
           />
           <PawPrint
             color="#e25085"
             size={75}
-            style={{ position: "relative", top: "190px", right: "150px" }}
+            style={{ position: "relative", top: "150px", right: "-10px" }}
           />
           <ThumbsUp
             color="#e25085"
             size={75}
-            style={{ position: "relative", top: "105px", left: "349px" }}
+            style={{ position: "relative", top: "85px", left: "349px" }}
           />
         </div>
       </div>
@@ -167,7 +172,7 @@ export default function Discussion() {
                   <Link to={`/forum/${index}`} className="link text-light">
                     <h3>
                       {
-                        renderForumContent(forum.content)
+                        renderForumContent(forum.title)
                           .split("<")[1]
                           .split(">")[1]
                       }
@@ -182,7 +187,8 @@ export default function Discussion() {
                     Created by: {forum.author}
                   </h5>
                   <button
-                    className="btn btn-danger"
+                    className="btn text-light"
+                    style={{ backgroundColor: "hsl(337, 93%, 66%)" }}
                     onClick={() => handleDeleteForum(forum._id)}
                   >
                     Delete
@@ -267,7 +273,10 @@ export default function Discussion() {
               className={`form-control ${
                 authorName.trim() === "" ? "is-invalid" : ""
               }`}
-              style={{ boxShadow: "inset #060606 0px 0px 5px 0px" }}
+              style={{
+                boxShadow: "inset #060606 0px 0px 5px 0px",
+                width: "74%",
+              }}
               id="authorName"
               value={authorName}
               onChange={(e) => setAuthorName(e.target.value)}
@@ -294,8 +303,8 @@ export default function Discussion() {
             letterSpacing: "0.1rem",
             outline: "none",
             position: "relative",
-            left: "92%",
-            bottom: "11%",
+            left: "72%",
+            bottom: "19%",
           }}
           onClick={postToForum}
           disabled={authorName.trim() === ""}

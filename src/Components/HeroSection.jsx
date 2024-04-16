@@ -205,54 +205,55 @@ export default function HeroSection() {
             <div className="d-flex justify-content-evenly">
               <Link to="/signup">
                 <button
-                  className="btn text-dark fw-bolder fs-6"
+                  className="btn d-flex align-items-center text-dark fw-bolder fs-6"
                   style={{ backgroundColor: "hsl(337, 93%, 66%)" }}
                   type="button"
                 >
                   <img
                     src={googleIcon}
                     style={{
-                      position: "relative",
-                      bottom: "2px",
                       marginRight: "5px",
-                      width: "15px",
+                      width: "17px",
                       background: "none",
                     }}
                     alt=""
                   />
-                  Google
+                  <label className="text-dark" htmlFor="Google">
+                    Google
+                  </label>
                 </button>
               </Link>
 
               <button
-                className="btn text-dark fw-bolder fs-6"
-                style={{ backgroundColor: "hsl(337, 93%, 66%)" }}
+                className="btn d-flex align-items-center text-dark fw-bolder fs-6"
+                style={{
+                  backgroundColor: "hsl(337, 93%, 66%)",
+                  height: "fit-content",
+                }}
               >
                 <img
                   src={linkedInIcon}
                   style={{
-                    position: "relative",
-                    bottom: "2px",
                     marginRight: "5px",
-                    width: "15px",
+                    width: "18px",
                     background: "none",
                   }}
                   alt=""
                 />
-                LinkedIn
+                <label className="text-dark" htmlFor="LinkedIn">
+                  LinkedIn
+                </label>
               </button>
 
               <button
-                className="btn text-dark fw-bolder fs-6"
+                className="btn d-flex align-items-center text-dark fw-bolder fs-6"
                 style={{ backgroundColor: "hsl(337, 93%, 66%)" }}
               >
                 <img
                   src={faceBookIcon}
                   style={{
-                    position: "relative",
-                    bottom: "2px",
                     marginRight: "5px",
-                    width: "15px",
+                    width: "17px",
                     background: "none",
                   }}
                   alt=""
@@ -306,7 +307,7 @@ export default function HeroSection() {
             </div>
             <button
               type="submit"
-              className="btn btn-primary w-100 mb-4 text-dark fw-bold"
+              className="btn btn-primary w-100 mb-4 text-light fw-bold"
               style={{ backgroundColor: "hsl(337, 93%, 66%)", border: "none" }}
             >
               Start your research right now!!!

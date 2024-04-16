@@ -7,8 +7,11 @@ export default function Footer() {
   return (
     <>
       <footer
-        className="footer d-flex p-5 mt-4 flex-column justify-content-center align-items-center"
-        style={{ boxShadow: "#191919 0px 0px 16px 0px" }}
+        className="footer d-flex p-5 flex-column justify-content-center align-items-center"
+        style={{
+          boxShadow: "#191919 0px 0px 16px 0px",
+          backgroundColor: "hsl(215, 17%, 20%)",
+        }}
       >
         <div className="logoAndTitle mb-3 d-flex align-items-center">
           <TbBrain size={55} color={Colors.primary} />{" "}

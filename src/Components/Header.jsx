@@ -178,7 +178,7 @@ export default function Header() {
         <div className="container-fluid">
           <div className="nav_and_button">
             <Link
-              className="navbar-brand fs-2 fw-bolder"
+              className="navbar-brand d-flex fs-2 fw-bolder"
               style={{ color: "white" }}
               to="/"
             >
@@ -241,7 +241,12 @@ export default function Header() {
               />
               <button
                 className="btn fw-medium text-light"
-                style={{ backgroundColor: Colors.btnColor, height: "35px" }}
+                style={{
+                  backgroundColor: Colors.btnColor,
+                  height: "35px",
+                  // position: "relative",
+                  // bottom: "11px",
+                }}
                 type="submit"
               >
                 Search

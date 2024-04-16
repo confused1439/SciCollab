@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const Project = require("../Model/model.project");
 
-// Function to create a new project
+// Create new project
 exports.createProject = async (req, res) => {
-  const UserId = req.params.userId;
+  const userId = req.params.userId;
   const {
     name,
     description,
@@ -17,11 +17,6 @@ exports.createProject = async (req, res) => {
     tasks,
   } = req.body;
 
-  // Validate required fields
-  if (!name || !description || !accessControl || !data) {
-    return res.status(400).json({ message: "Please provide required fields" });
-  }
-
   try {
     const newProject = new Project({
       name,
@@ -34,17 +29,28 @@ exports.createProject = async (req, res) => {
       analysisTools,
       milestones,
       tasks,
-      createdBy: UserId,
+      // createdBy: userId,
     });
 
     await newProject.save();
 
-    res
-      .status(201)
-      .json({ message: "Project created successfully", project: newProject });
+    res.status(201).json({
+      id: newProject._id,
+      ...newProject._doc,
+      message: "Project created successfully",
+      project: newProject,
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Error creating project" });
+    if (err.name === "ValidationError") {
+      const errors = {};
+      Object.keys(err.errors).forEach((key) => {
+        errors[key] = err.errors[key].message;
+      });
+      return res.status(400).json({ message: "Validation error", errors });
+    } else {
+      console.error("Error creating project:", err);
+      return res.status(500).json({ message: "Error creating project" });
+    }
   }
 };
 
