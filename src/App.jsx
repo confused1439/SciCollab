@@ -8,6 +8,7 @@ import Footer from "./Components/Footer";
 import Dummy from "./Components/Dummy";
 import Signup from "./Components/Signup";
 import Profile from "./Components/Profile";
+import Collaborators from "./Components/Collaborators.1";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./styles/App.scss";
 
@@ -18,9 +19,10 @@ export default function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/project" element={<Project />} />
+          <Route path="/projects/:userId" element={<Project />} />
           <Route path="/data-sharing" element={<DataSharing />} />
-          <Route path="/discussion" element={<Discussion />} />
+          <Route path="/discussion/:userId" element={<Discussion />} />
+          <Route path="/collaborators/:userId" element={<Collaborators />} />
           <Route path="/dummy" element={<Dummy />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/user-profile" element={<Profile />} />

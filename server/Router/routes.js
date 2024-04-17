@@ -10,12 +10,14 @@ const {
   deleteProject,
 } = require("../Controllers/ProjectController");
 const { createDemo, getDemos } = require("../Controllers/DemoController");
+const CollaborationRequestController = require("../Controllers/CollaborationRequestController");
 
 // Routes
 router.post("/signup", UserController.signup);
 router.post("/login", UserController.login);
 router.get("/logout", UserController.logout);
-router.post("/search", UserController.search);
+router.get("/get-user/:userId", UserController.getUser);
+router.get("/get-users", UserController.getUsers);
 
 // Routes for projects
 router.post("/create-project", createProject); // Create a new project
@@ -28,6 +30,14 @@ router.delete("/delete-project/:projectId", deleteProject); // Delete a project
 router.get("/get-forums", forumController.getAllForumPosts);
 router.post("/create-forum", forumController.createForumPost);
 router.delete("/delete-forum/:id", forumController.deleteForumPost);
+
+// Routes for collaborationRequest
+router.post("/send-request", CollaborationRequestController.sendRequest);
+router.get(
+  "/requests/:userId",
+  CollaborationRequestController.getRequestsForUser
+);
+router.put("/respond-request", CollaborationRequestController.respondToRequest);
 
 // Routes for demos
 router.post("/create-demo", createDemo);

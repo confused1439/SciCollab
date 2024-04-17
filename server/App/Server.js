@@ -1,11 +1,25 @@
 // App.js
 require("dotenv").config();
 const express = require("express");
+const session = require("express-session");
 const mongoose = require("mongoose");
 const app = express();
 const route = require("../Router/routes");
 
 app.use(express.json());
+
+app.use(
+  session({
+    secret: "SciCollab",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: true, // Use 'true' if you're using HTTPS
+      httpOnly: true,
+      maxAge: 3600000, // Session expires after 1 hour
+    },
+  })
+);
 
 // Connect to MongoDB
 mongoose

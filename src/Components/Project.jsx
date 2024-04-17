@@ -26,14 +26,16 @@ import {
   Box,
 } from "@chakra-ui/react";
 import "../styles/Project.scss";
+import { useParams } from "react-router-dom";
 
-export default function Project({ userId }) {
+export default function Project() {
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
 
   const onClose1 = () => setIsOpen1(false);
   const onClose2 = () => setIsOpen2(false);
 
+  const { userId } = useParams();
   const [name, setName] = useState("");
   const [keywords, setKeywords] = useState("");
   const [description, setDescription] = useState("");
@@ -45,8 +47,8 @@ export default function Project({ userId }) {
     { name: "", keywords: "", description: "", url: "" },
   ]);
   const [formDataCount, setFormDataCount] = useState(1);
-  const [millestones, setMillestones] = useState([{ name: "", deadline: "" }]);
-  const [millestoneCount, setMillestoneCount] = useState(1);
+  const [milestones, setMilestones] = useState([{ name: "", deadline: "" }]);
+  const [milestoneCount, setMilestoneCount] = useState(1);
   const [tasks, setTasks] = useState([{ name: "", status: "" }]);
   const [taskCount, setTaskCount] = useState(1);
   const [projects, setProjects] = useState([]); // State to hold projects
@@ -59,94 +61,85 @@ export default function Project({ userId }) {
   const fetchProjects = async () => {
     try {
       const response = await axios.get("/get-projects");
-      setProjects(response.data);
+      // console.log(response.data.createdBy);
+      setProjects(
+        response.data.filter((project) => project.createdBy === userId)
+      );
     } catch (error) {
       console.error("Error fetching projects:", error);
     }
   };
 
   const renderProjects = () => {
-    return projects.length > 0 ? (
-      projects.map((project, index) => (
-        <Box
-          sx={{
-            backgroundColor: "hsl(215, 17%, 20%)",
-            boxShadow: " #060606 0px 0px 5px 0px",
-            height: "500px",
-            overflowY: "auto",
-            "&::-webkit-scrollbar": {
-              display: "none",
-            },
-          }}
-          key={index}
-          bg="white"
-          p={4}
-          borderRadius="md"
-          boxShadow="md"
-          mb={4}
+    if (!projects || projects.length === 0) {
+      return <p>No projects available</p>;
+    }
+    return projects.map((project, index) => (
+      <Box
+        sx={{
+          backgroundColor: "hsl(215, 17%, 20%)",
+          boxShadow: " #060606 0px 0px 5px 0px",
+          height: "500px",
+          overflowY: "auto",
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        }}
+        key={index}
+        bg="white"
+        p={4}
+        borderRadius="md"
+        boxShadow="md"
+        mb={4}
+      >
+        <p style={{ opacity: "0.6", marginBottom: "20px" }}>
+          Project - {index + 1}
+        </p>
+        <h2>{project.name}</h2>
+        <p>{project.description}</p>
+        <p>Keywords: {project.keywords.join(", ")}</p>
+        <p>Funding Source: {project.fundingSource}</p>
+        <p>Access Control: {project.accessControl}</p>
+        <p>Methodology: {project.methodology}</p>
+        <p>Analysis Tools: {project.analysisTools.join(", ")}</p>
+        <p>Created By: {project.createdBy}</p>
+        <p>Created At: {new Date(project.createdAt).toLocaleString()}</p>
+        <p>Updated At: {new Date(project.updatedAt).toLocaleString()}</p>
+        {/* Render data */}
+        <p>Data:</p>
+        {project.data.map((data, dataIndex) => (
+          <div key={dataIndex}>
+            <p>Name: {data.name}</p>
+            <p>Description: {data.description}</p>
+            <p>Data URL: {data.dataUrl}</p>
+            <p>Format: {data.format}</p>
+          </div>
+        ))}
+        {/* Render milestones */}
+        <p>Milestones:</p>
+        {project.milestones.map((milestone, milestoneIndex) => (
+          <div key={milestoneIndex}>
+            <p>Name: {milestone.name}</p>
+            <p>Deadline: {new Date(milestone.deadline).toLocaleString()}</p>
+          </div>
+        ))}
+        {/* Render tasks */}
+        <p>Tasks:</p>
+        {project.tasks.map((task, taskIndex) => (
+          <div key={taskIndex}>
+            <p>Name: {task.name}</p>
+            <p>Completed: {task.completed ? "Yes" : "No"}</p>
+          </div>
+        ))}
+
+        <Button
+          sx={{ backgroundColor: "hsl(337, 93%, 66%)" }}
+          onClick={() => handleDeleteProject(project._id)}
         >
-          <p style={{ opacity: "0.6", marginBottom: "20px" }}>
-            Project - {index + 1}
-          </p>
-          <h2>{project.name}</h2>
-          <p>{project.description}</p>
-          <p>Keywords: {project.keywords.join(", ")}</p>
-          <p>Funding Source: {project.fundingSource}</p>
-          <p>Access Control: {project.accessControl}</p>
-          <p>Methodology: {project.methodology}</p>
-          <p>Analysis Tools: {project.analysisTools.join(", ")}</p>
-          <p>Created By: {project.createdBy}</p>
-          <p>Created At: {new Date(project.createdAt).toLocaleString()}</p>
-          <p>Updated At: {new Date(project.updatedAt).toLocaleString()}</p>
-          {/* Render data */}
-          <p>Data:</p>
-          {project.data.map((data, dataIndex) => (
-            <div key={dataIndex}>
-              <p>Name: {data.name}</p>
-              <p>Description: {data.description}</p>
-              <p>Data URL: {data.dataUrl}</p>
-              <p>Format: {data.format}</p>
-            </div>
-          ))}
-          {/* Render milestones */}
-          <p>Milestones:</p>
-          {project.milestones.map((milestone, milestoneIndex) => (
-            <div key={milestoneIndex}>
-              <p>Name: {milestone.name}</p>
-              <p>Deadline: {new Date(milestone.deadline).toLocaleString()}</p>
-            </div>
-          ))}
-          {/* Render tasks */}
-          <p>Tasks:</p>
-          {project.tasks.map((task, taskIndex) => (
-            <div key={taskIndex}>
-              <p>Name: {task.name}</p>
-              <p>Completed: {task.completed ? "Yes" : "No"}</p>
-            </div>
-          ))}
-
-          {/* Delete button */}
-          {/* <Button
-            sx={{
-              color: "white",
-              backgroundColor: "hsl(337, 93%, 66%)",
-
-              fontWeight: "bolder",
-
-              _hover: {
-                backgroundColor: "hsl(337, 93%, 66%)",
-                textDecoration: "none",
-              },
-            }}
-            onClick={() => handleDeleteProject(project._id)}
-          >
-            Delete
-          </Button> */}
-        </Box>
-      ))
-    ) : (
-      <p>No projects available</p>
-    );
+          Delete
+        </Button>
+      </Box>
+    ));
   };
 
   const handleDeleteProject = async (id) => {
@@ -157,25 +150,6 @@ export default function Project({ userId }) {
       console.error("Error deleting forum:", error);
     }
   };
-
-  // const handleUpdateProject = async (id) => {
-  //   try {
-  //     await axios.update(`/update-project/${id}`, {
-  //       name,
-  //       data: formData,
-  //       description,
-  //       keywords,
-  //       accessControl,
-  //       millestones,
-  //       methodology,
-  //       tasks,
-  //       analysisTools,
-  //     });
-  //     console.log("Project updated successfully:");
-  //   } catch (error) {
-  //     console.error("Error updating forum:", error);
-  //   }
-  // };
 
   const handleEditProject = (project) => {
     setSelectedProject(project);
@@ -280,36 +254,36 @@ export default function Project({ userId }) {
     ));
   };
 
-  // millestone
-  const addNewMillestoneForm = () => {
-    setMillestoneCount(millestoneCount + 1);
-    setMillestones([...millestones, { name: "", deadline: "" }]);
+  // milestone
+  const addNewMilestoneForm = () => {
+    setMilestoneCount(milestoneCount + 1);
+    setMilestones([...milestones, { name: "", deadline: "" }]);
   };
 
-  const handleMillestoneChange = (index, field, value) => {
-    const newMillestones = [...millestones];
-    newMillestones[index][field] = value;
-    setMillestones(newMillestones);
+  const handleMilestoneChange = (index, field, value) => {
+    const newMilestones = [...milestones];
+    newMilestones[index][field] = value;
+    setMilestones(newMilestones);
   };
 
-  const renderMillestonesForms = () => {
-    return millestones.map((millestone, index) => (
+  const renderMilestonesForms = () => {
+    return milestones.map((milestone, index) => (
       <FormControl key={index} mt={6}>
         <Grid templateColumns="repeat(2, 1fr)" gap={6}>
           <Input
-            name="millestone"
-            placeholder={`Millestone - ${index + 1}`}
-            value={millestone.name}
+            name="milestone"
+            placeholder={`Milestone - ${index + 1}`}
+            value={milestone.name}
             onChange={(e) =>
-              handleMillestoneChange(index, "name", e.target.value)
+              handleMilestoneChange(index, "name", e.target.value)
             }
           />
           <Input
             name="deadline"
             placeholder="Deadline"
-            value={millestone.deadline}
+            value={milestone.deadline}
             onChange={(e) =>
-              handleMillestoneChange(index, "deadline", e.target.value)
+              handleMilestoneChange(index, "deadline", e.target.value)
             }
           />
         </Grid>
@@ -367,12 +341,15 @@ export default function Project({ userId }) {
         description,
         keywords,
         accessControl,
-        millestones,
+        milestones,
         methodology,
         tasks,
         analysisTools,
+        createdBy: userId, // Include the userId here
       });
-      console.log("Success");
+
+      console.log(`project created by: ${userId}`);
+      // Reset the form fields
       setName("");
       setDescription("");
       setKeywords("");
@@ -381,8 +358,8 @@ export default function Project({ userId }) {
       setAnalysisTools("");
       setFormData([{ name: "", dataUrl: "", description: "", format: "" }]);
       setFormDataCount(1);
-      setMillestones([{ name: "", deadline: "" }]);
-      setMillestoneCount(1);
+      setMilestones([{ name: "", deadline: "" }]);
+      setMilestoneCount(1);
       setTasks([{ name: "", status: "" }]);
       setTaskCount(1);
     } catch (error) {
@@ -527,11 +504,11 @@ export default function Project({ userId }) {
               </FormControl>
 
               <FormControl mt={6}>
-                <FormLabel>Millestones</FormLabel>
-                {renderMillestonesForms()}
+                <FormLabel>Milestones</FormLabel>
+                {renderMilestonesForms()}
                 <Button
-                  id="addMillestone"
-                  onClick={addNewMillestoneForm}
+                  id="addMilestone"
+                  onClick={addNewMilestoneForm}
                   sx={{
                     color: "white",
                     backgroundColor: "hsl(337, 93%, 66%)",
@@ -542,7 +519,7 @@ export default function Project({ userId }) {
                   }}
                   mt={4}
                 >
-                  Add Millestone
+                  Add Milestone
                 </Button>
               </FormControl>
 
@@ -589,7 +566,10 @@ export default function Project({ userId }) {
           </form>
         </ModalContent>
       </Modal>
-      <h1 className="my-4" style={{ position: "relative", left: "3%" }}>
+      <h1
+        className="my-4"
+        style={{ position: "relative", width: "fit-content", left: "3%" }}
+      >
         Project Gallery
       </h1>
       <Grid
@@ -603,7 +583,10 @@ export default function Project({ userId }) {
       {/* Model-2 */}
 
       {/* Update Modal */}
-      <h1 className="my-4" style={{ position: "relative", left: "3%" }}>
+      <h1
+        className="my-4"
+        style={{ position: "relative", width: "fit-content", left: "3%" }}
+      >
         Update and Delete section
       </h1>
       <Flex

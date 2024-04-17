@@ -1,10 +1,20 @@
-// controllers/UserController.js
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../Model/model.user");
 
 module.exports = {
+  // Function to get all users
+  async getUsers(req, res) {
+    try {
+      const users = await UserModel.find();
+      res.json(users);
+    } catch (error) {
+      console.error(err);
+      res.status(500).json({ message: "Error fetching users" });
+    }
+  },
+
+  // Function to register a user
   async signup(req, res) {
     const { username, email, password } = req.body;
 
@@ -55,7 +65,6 @@ module.exports = {
       // Successful signup
       res.status(201).json({
         success: true,
-        redirectUrlForLogin,
         alert: { type: "success", message: "Account created successful!" },
       });
       console.log("Signup successful!");
@@ -65,6 +74,7 @@ module.exports = {
     }
   },
 
+  // Function to loggin a user
   async login(req, res) {
     const { email, password } = req.body;
 
@@ -95,17 +105,18 @@ module.exports = {
         expiresIn: "1h",
       });
 
-      const redirectUrl = `/user-profile?userId=${encodeURIComponent(
-        user._id
-      )}`;
+      // Redirect to user profile page with user ID
+      const redirectUrl = `/user-profile/${user._id}`;
 
       res.status(200).json({
+        userId: user._id,
         userName: user.username,
         success: true,
         redirectUrl,
         token,
         alert: { type: "success", message: "Login successful!" },
       });
+
       console.log("Login successful!");
     } catch (error) {
       console.error("Error logging in user:", error);
@@ -122,22 +133,35 @@ module.exports = {
     });
   },
 
-  //Search
-  async search(req, res) {
-    const { query } = req.body;
+  // get the user
+  async getUser(req, res) {
+    const { userId } = req.params;
 
     try {
-      // Search for users with matching username or email
-      const results = await UserModel.find({
-        $or: [
-          { username: { $regex: query, $options: "i" } }, // Case-insensitive regex match for username
-          { email: { $regex: query, $options: "i" } }, // Case-insensitive regex match for email
-        ],
+      // Find the user by userId
+      const user = await UserModel.findById(userId);
+
+      // Check if user exists
+      if (!user) {
+        return res.status(404).json({
+          error: "User not found",
+          alert: {
+            type: "danger",
+            message: "User with the provided ID not found",
+          },
+        });
+      }
+
+      // If user exists, return user data
+      res.status(200).json({
+        user,
+        success: true,
+        alert: { type: "success", message: "User data retrieved successfully" },
       });
 
-      res.status(200).json({ success: true, results });
+      console.log("User data retrieved successfully!");
     } catch (error) {
-      console.error("Error searching users:", error);
+      console.error("Error retrieving user data:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   },

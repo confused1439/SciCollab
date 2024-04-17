@@ -3,7 +3,7 @@ const Project = require("../Model/model.project");
 
 // Create new project
 exports.createProject = async (req, res) => {
-  const userId = req.params.userId;
+  // const userId = req.params.userId;
   const {
     name,
     description,
@@ -15,6 +15,7 @@ exports.createProject = async (req, res) => {
     analysisTools,
     milestones,
     tasks,
+    createdBy,
   } = req.body;
 
   try {
@@ -29,7 +30,7 @@ exports.createProject = async (req, res) => {
       analysisTools,
       milestones,
       tasks,
-      // createdBy: userId,
+      createdBy,
     });
 
     await newProject.save();

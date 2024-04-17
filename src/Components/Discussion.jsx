@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import showdown from "showdown";
 import axios from "axios";
 import {
@@ -10,6 +10,7 @@ import {
   Clover,
   MessagesSquare,
 } from "lucide-react";
+import { Button } from "@chakra-ui/react";
 
 export default function Discussion() {
   const renderForumContent = (content) => {
@@ -17,11 +18,23 @@ export default function Discussion() {
     return converter.makeHtml(content);
   };
 
+  const { userId } = useParams();
   const [forums, setForums] = useState([]);
   const [postContent, setPostContent] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [forumTitle, setForumTitle] = useState("");
   const [showForums, setShowForums] = useState(false);
+
+  const fetchAuthorName = async () => {
+    try {
+      const response = await axios.get(`/get-user/${userId}`);
+      // Set the userName state using response.data.user.username
+      setAuthorName(response.data.user.username);
+      console.log(`username: ${authorName}`);
+    } catch (error) {
+      console.error("Error fetching username:", error);
+    }
+  };
 
   const fetchForumPosts = async () => {
     try {
@@ -34,7 +47,8 @@ export default function Discussion() {
 
   useEffect(() => {
     fetchForumPosts();
-  }, []);
+    fetchAuthorName(); // Call fetchAuthorName here to get the author name
+  }, [userId]); // Add userId to dependencies array to re-fetch username when userId changes
 
   const postToForum = async () => {
     if (!postContent.trim() || !forumTitle.trim()) return;
@@ -87,7 +101,7 @@ export default function Discussion() {
           marginBottom: "60px",
         }}
       >
-        <div id="headlineDesc" style={{ flex: "0 0 62%" }}>
+        <div id="headlineDesc" style={{ flex: "0 0 58%" }}>
           <h2 className="fs-2 fw-medium" style={{ letterSpacing: "7px" }}>
             Discussions
           </h2>
@@ -118,7 +132,7 @@ export default function Discussion() {
             background: "none",
             position: "relative",
             top: "25px",
-            left: "45px",
+            left: "40px",
             transform: "rotate(-14deg)",
           }}
         >
@@ -166,42 +180,46 @@ export default function Discussion() {
 
         {showForums && (
           <>
-            {forums.map((forum, index) => (
-              <div className="d-flex flex-column mb-3" key={index}>
-                <div className="px-3 py-4 my-3 container shadow-lg rounded vw-100">
-                  <Link to={`/forum/${index}`} className="link text-light">
-                    <h3>
-                      {
-                        renderForumContent(forum.title)
-                          .split("<")[1]
-                          .split(">")[1]
-                      }
-                    </h3>
-                  </Link>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: renderForumContent(forum.content),
-                    }}
-                  />
-                  <h5 className="text-end m-3 opacity-50">
-                    Created by: {forum.author}
-                  </h5>
-                  <button
-                    className="btn text-light"
-                    style={{ backgroundColor: "hsl(337, 93%, 66%)" }}
-                    onClick={() => handleDeleteForum(forum._id)}
-                  >
-                    Delete
-                  </button>
+            {forums
+              .filter((forum) => forum.author === authorName) // Filter forums by authorName; remove this for rendering all
+              .map((forum, index) => (
+                <div className="d-flex flex-column mb-3" key={index}>
+                  <div className="px-3 py-4 my-3 container shadow-lg rounded w-100">
+                    <Link to={`/forum/${index}`} className="link text-light">
+                      <h3 className="mb-3" style={{ opacity: "0.5" }}>
+                        {
+                          renderForumContent(forum.title)
+                            .split("<")[1]
+                            .split(">")[1]
+                        }
+                      </h3>
+                    </Link>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: renderForumContent(forum.content),
+                      }}
+                    />
+                    <h5 className="text-end m-3 opacity-50">
+                      Created by: {forum.author}
+                    </h5>
+                    <button
+                      className="btn text-light"
+                      style={{ backgroundColor: "hsl(337, 93%, 66%)" }}
+                      onClick={() => handleDeleteForum(forum._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </>
         )}
       </div>
 
-      <div className="vw-100 justify-content-center" id="forum-container">
-        <h2 style={{ position: "relative", left: "5%" }}>New Post</h2>
+      <div className="w-100 justify-content-center" id="forum-container">
+        <h2 style={{ width: "fit-content", position: "relative", left: "5%" }}>
+          New Post
+        </h2>
 
         <div className="form-floating w-75 my-5 mt-3">
           {/* input */}
@@ -253,45 +271,6 @@ export default function Discussion() {
               value={postContent}
               onChange={(e) => setPostContent(e.target.value)}
             ></textarea>
-          </div>
-        </div>
-
-        <div
-          className="input-group has-validation w-75"
-          style={{
-            position: "relative",
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        >
-          <span className="input-group-text" style={{ height: "58px" }}>
-            @
-          </span>
-          <div className="form-floating">
-            <input
-              type="text"
-              className={`form-control ${
-                authorName.trim() === "" ? "is-invalid" : ""
-              }`}
-              style={{
-                boxShadow: "inset #060606 0px 0px 5px 0px",
-                width: "74%",
-              }}
-              id="authorName"
-              value={authorName}
-              onChange={(e) => setAuthorName(e.target.value)}
-              placeholder="Username"
-              required
-            />
-            <label
-              style={{ background: "none", color: "black" }}
-              htmlFor="authorName"
-            >
-              Username
-            </label>
-            {authorName.trim() === "" && (
-              <div className="invalid-feedback">Please choose a username.</div>
-            )}
           </div>
         </div>
 

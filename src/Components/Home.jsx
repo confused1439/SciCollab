@@ -4,7 +4,7 @@ import HeroSection from "./HeroSection";
 export default function Home() {
   return (
     <div
-      className="d-flex vh-100 justify-content-center flex-wrap  p-3 "
+      className="d-flex h-100 justify-content-center flex-wrap  p-3 "
       style={{ backgroundColor: "hsl(215, 17%, 20%)" }}
     >
       <HeroSection />

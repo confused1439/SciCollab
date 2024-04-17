@@ -32,6 +32,10 @@ export default function HeroSection() {
         alertDiv.textContent = "Login successful. Redirecting...";
         console.log("Login successful!");
 
+        // Store userId in session storage
+        sessionStorage.setItem("userId", data.userId);
+        sessionStorage.setItem("userName", data.userName);
+
         // Update the header with the user's username
         setTimeout(() => {
           navigate(data.redirectUrl, { state: { userName: data.userName } });
@@ -91,21 +95,21 @@ export default function HeroSection() {
                 className="accordion-collapse collapse border border-top-0 rounded-bottom"
                 data-bs-parent="#accordion_1"
               >
-                <div className="accordion-body text-light">
+                <div className="accordion-body bg-dark">
                   <ul>
-                    <li className="my-2">
+                    <li className="my-2 ">
                       <strong>
                         Collaborate seamlessly: Share data, analyses, and
                         insights effortlessly.
                       </strong>
                     </li>
-                    <li className="my-2">
+                    <li className="my-2 ">
                       <strong>
                         Streamline workflows: Automate tasks and accelerate your
                         research progress.
                       </strong>
                     </li>
-                    <li className="my-2">
+                    <li className="my-2 ">
                       <strong>
                         Gain deeper understanding: Utilize advanced analysis
                         tools for groundbreaking discoveries.
@@ -148,27 +152,27 @@ export default function HeroSection() {
                 className="accordion-collapse collapse"
                 data-bs-parent="#accordion_2"
               >
-                <div className="accordion-body text-light">
+                <div className="accordion-body bg-dark">
                   <ul>
-                    <li className="my-2">
+                    <li className="my-2 ">
                       <strong>
                         Data Management: Securely store, organize, and share
                         your research data.
                       </strong>
                     </li>
-                    <li className="my-2">
+                    <li className="my-2 ">
                       <strong>
                         Collaborative Analysis: Work together on analyses in
                         real-time, fostering innovation.
                       </strong>
                     </li>
-                    <li className="my-2">
+                    <li className="my-2 ">
                       <strong>
                         Advanced Visualization: Generate clear and impactful
                         visualizations to communicate your findings.
                       </strong>
                     </li>
-                    <li className="my-2">
+                    <li className="my-2 ">
                       <strong>
                         Project Management: Keep your research on track with
                         intuitive tools and progress tracking.
