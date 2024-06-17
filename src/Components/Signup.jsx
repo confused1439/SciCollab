@@ -53,7 +53,10 @@ export default function Signup() {
   };
 
   return (
-    <div className="d-flex m-5 vh-100 justify-content-center align-item-center">
+    <div
+      className="d-flex p-5 vh-100 justify-content-center align-item-center"
+      style={{ backgroundColor: "hsl(215, 17%, 20%)" }}
+    >
       <form
         id="signupForm"
         onSubmit={handleSubmit}
@@ -65,8 +68,8 @@ export default function Signup() {
           left: "55px",
         }}
       >
-        <h2 className="my-4 mb-5 text-center">Create Your Free Account</h2>
         <div id="signupAlert" className="alert fw-bold" role="alert"></div>
+        <h2 className="my-4 mb-5 text-center">Create Your Free Account</h2>
         {/* Username */}
         <div className="mb-4">
           <label htmlFor="InputUsername1" className="text-ligth form-label">

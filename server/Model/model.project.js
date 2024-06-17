@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const ProjectSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
     trim: true,
   },
   description: {
     type: String,
-    required: true,
+    // required: true,
   },
   keywords: {
     type: [String],
@@ -16,19 +16,19 @@ const ProjectSchema = new mongoose.Schema({
   fundingSource: String,
   accessControl: {
     type: String,
-    required: true,
+    // required: true,
     enum: ["Public", "Private", "Collaborator"],
   },
   data: [
     {
       name: {
         type: String,
-        required: true,
+        // required: true,
       },
       description: String,
       dataUrl: {
         type: String,
-        required: true,
+        // required: true,
       },
       format: String,
     },
@@ -39,7 +39,7 @@ const ProjectSchema = new mongoose.Schema({
     {
       name: {
         type: String,
-        required: true,
+        // required: true,
       },
       deadline: Date,
     },
@@ -60,7 +60,7 @@ const ProjectSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    // required: true,
   },
   createdAt: {
     type: Date,

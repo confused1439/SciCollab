@@ -21,14 +21,17 @@ app.use(
   })
 );
 
+const URI =
+  "mongodb+srv://viveksaradva:vivek123@scicollabdb.1vllt7j.mongodb.net/scicollabSpace?retryWrites=true&w=majority&appName=SciCollabDB";
+
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGODB_URI || URI)
   .then(() => {
     console.log("Database connected successfully!");
   })
   .catch((err) => {
-    console.log("Failed to connect!");
+    console.error("Failed to connect!", err);
   });
 
 app.use("/", route);

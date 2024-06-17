@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { TbBrain } from "react-icons/tb";
+import { Button, Spacer } from "@chakra-ui/react"; // Import Button from Chakra UI
 import { Colors } from "./Colors";
+import { CircleUser } from "lucide-react";
 
 export default function Header() {
   const location = useLocation();
-  const [userId, setUserId] = useState(null); // State to store userId
+  const [userId, setUserId] = useState(""); // State to store userId
 
   useEffect(() => {
     // Retrieve userId from session storage when component mounts
@@ -13,20 +15,15 @@ export default function Header() {
     setUserId(storedUserId);
     const userName = sessionStorage.getItem("userName");
     setUsername(userName);
-    // Check if user is on the profile page or signup page
-    setShowDropdown(
-      location.pathname !== "/" && location.pathname !== "/signup"
-    );
   }, [location]);
 
-  const [showDropdown, setShowDropdown] = useState(true);
   const [username, setUsername] = useState("user");
 
   return (
     <>
       <nav
         className="navbar sticky-top navbar-expand-lg shadow-lg p-3"
-        style={{ backgroundColor: Colors.mainBgColor }}
+        style={{ backgroundColor: Colors.mainBgColor, zIndex: "990" }}
       >
         <div className="container-fluid">
           <div className="nav_and_button">
@@ -54,57 +51,22 @@ export default function Header() {
             className="collapse navbar-collapse flex-row-reverse align-item-center"
             id="navbarNav"
           >
-            {/* Dropdown */}
-            <div className={showDropdown ? "dropdown" : "visually-hidden"}>
-              <button
-                className="btn btn-secondary dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {username}
-              </button>
-              <ul className="dropdown-menu">
-                <li>
-                  <Link className="dropdown-item" href="#">
-                    Action
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="#">
-                    Another action
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="#">
-                    Something else here
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <form
-              className="d-flex justify-content-center align-item-center"
-              role="search"
-            >
-              <input
-                className="form-control fw-medium me-2 w-50 h-25 border border-0"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button
-                className="btn fw-medium text-light"
-                style={{
-                  backgroundColor: Colors.btnColor,
-                  height: "35px",
-                  // position: "relative",
-                  // bottom: "11px",
-                }}
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
+            {location.pathname !== "/" && location.pathname !== "/signup" && (
+              <Link to={`/user-profile/${userId}`}>
+                <Button
+                  color="hsl(338, 72%, 60%)"
+                  fontSize="lg"
+                  variant="solid"
+                >
+                  <CircleUser
+                    size={22}
+                    style={{ marginRight: "7", fontWeight: "bolder" }}
+                    color="hsl(338, 72%, 60%)"
+                  />
+                  {username}
+                </Button>
+              </Link>
+            )}
 
             <ul className="navbar-nav">
               <li className="nav-item fw-medium">
@@ -121,9 +83,9 @@ export default function Header() {
                 <Link
                   className="nav-link active mx-3"
                   style={{ color: "white" }}
-                  to={`/data-sharing/${userId}`}
+                  to={`/data-visual/${userId}`}
                 >
-                  Data Sharing
+                  Data visualization
                 </Link>
               </li>
               <li className="nav-item fw-medium">

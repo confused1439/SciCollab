@@ -10,7 +10,7 @@ import {
   Clover,
   MessagesSquare,
 } from "lucide-react";
-import { Button } from "@chakra-ui/react";
+import { Button, Flex, Spacer } from "@chakra-ui/react";
 
 export default function Discussion() {
   const renderForumContent = (content) => {
@@ -199,16 +199,21 @@ export default function Discussion() {
                         __html: renderForumContent(forum.content),
                       }}
                     />
-                    <h5 className="text-end m-3 opacity-50">
-                      Created by: {forum.author}
-                    </h5>
-                    <button
-                      className="btn text-light"
-                      style={{ backgroundColor: "hsl(337, 93%, 66%)" }}
-                      onClick={() => handleDeleteForum(forum._id)}
-                    >
-                      Delete
-                    </button>
+                    <Flex alignItems="center">
+                      <Button
+                        sx={{
+                          color: "white",
+                          backgroundColor: "hsl(337, 93%, 66%)",
+                        }}
+                        onClick={() => handleDeleteForum(forum._id)}
+                      >
+                        Delete
+                      </Button>
+                      <Spacer />
+                      <h6 className="text-end m-3 opacity-50">
+                        Created by: {forum.author}
+                      </h6>
+                    </Flex>
                   </div>
                 </div>
               ))}

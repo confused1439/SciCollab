@@ -9,12 +9,15 @@ const {
   updateProject,
   deleteProject,
 } = require("../Controllers/ProjectController");
-const { createDemo, getDemos } = require("../Controllers/DemoController");
 const CollaborationRequestController = require("../Controllers/CollaborationRequestController");
+const {
+  createVisualization,
+} = require("../Controllers/DatavisualizationController");
 
 // Routes
 router.post("/signup", UserController.signup);
 router.post("/login", UserController.login);
+router.post("/update-user/:userId", UserController.updateUser);
 router.get("/logout", UserController.logout);
 router.get("/get-user/:userId", UserController.getUser);
 router.get("/get-users", UserController.getUsers);
@@ -39,8 +42,6 @@ router.get(
 );
 router.put("/respond-request", CollaborationRequestController.respondToRequest);
 
-// Routes for demos
-router.post("/create-demo", createDemo);
-router.get("/getdemos", getDemos);
-
+// Data Visualization
+router.post("/data-visual", createVisualization);
 module.exports = router;

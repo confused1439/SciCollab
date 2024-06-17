@@ -2,7 +2,7 @@ const CollaborationRequest = require("../Model/model.collaborationRequest.js");
 
 module.exports = {
   async sendRequest(req, res) {
-    const { senderId, recipientId, recipientName, message } = req.body;
+    const { senderId, recipientId, recipientName, message, status } = req.body;
 
     try {
       // Create a collaboration request
@@ -10,6 +10,7 @@ module.exports = {
         sender: senderId,
         recipient: recipientId,
         message,
+        status,
       });
 
       // Save the request to the database
@@ -58,6 +59,15 @@ module.exports = {
   async respondToRequest(req, res) {
     const { requestId, response } = req.body;
 
+    // Input validation
+    if (
+      !requestId ||
+      !response ||
+      (response !== "Accept" && response !== "Decline")
+    ) {
+      return res.status(400).json({ error: "Invalid request data" });
+    }
+
     try {
       // Find the request by ID
       const request = await CollaborationRequest.findById(requestId);
@@ -70,10 +80,10 @@ module.exports = {
       }
 
       // Update request status based on response
-      if (response === "accept") {
-        request.status = "accepted";
-      } else if (response === "decline") {
-        request.status = "declined";
+      if (response === "Accept") {
+        request.status = "Accepted";
+      } else if (response === "Decline") {
+        request.status = "Declined";
       }
 
       // Save the updated request

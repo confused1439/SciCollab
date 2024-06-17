@@ -1,5 +1,3 @@
-// model.user.js
-
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
@@ -16,6 +14,18 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  skills: {
+    type: [String],
+    default: [],
+  },
+  researchInterests: {
+    type: [String],
+    default: [],
+  },
+  bio: {
+    type: String,
+    default: "",
   },
 });
 

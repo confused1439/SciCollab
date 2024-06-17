@@ -64,6 +64,7 @@ module.exports = {
       const redirectUrlForLogin = "/";
       // Successful signup
       res.status(201).json({
+        redirectUrlForLogin,
         success: true,
         alert: { type: "success", message: "Account created successful!" },
       });
@@ -101,12 +102,16 @@ module.exports = {
       }
 
       // Generate JWT token
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign(
+        { userId: user._id },
+        process.env.JWT_SECRET || "vivek",
+        {
+          expiresIn: "1h",
+        }
+      );
 
       // Redirect to user profile page with user ID
-      const redirectUrl = `/user-profile/${user._id}`;
+      const redirectUrl = `/projects/${user._id}`;
 
       res.status(200).json({
         userId: user._id,
@@ -127,8 +132,10 @@ module.exports = {
   //   Logout
   logout(req, res) {
     // Respond with a success message
+    const redirectToHome = "/";
     res.status(200).json({
       success: true,
+      redirectToHome,
       message: "Logout successful",
     });
   },
@@ -162,6 +169,89 @@ module.exports = {
       console.log("User data retrieved successfully!");
     } catch (error) {
       console.error("Error retrieving user data:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  },
+
+  // Update user
+  // async updateUser(req, res) {
+  //   const { userId } = req.params;
+  //   const updateData = req.body;
+
+  //   try {
+  //     // Find the user by userId and update the data
+  //     const updatedUser = await UserModel.findByIdAndUpdate(
+  //       userId,
+  //       updateData,
+  //       {
+  //         new: true, // Return the updated document
+  //         runValidators: true, // Run validators to ensure the updated data meets the schema requirements
+  //       }
+  //     );
+
+  //     // Check if user exists
+  //     if (!updatedUser) {
+  //       return res.status(404).json({
+  //         error: "User not found",
+  //         alert: {
+  //           type: "danger",
+  //           message: "User with the provided ID not found",
+  //         },
+  //       });
+  //     }
+
+  //     // If user is found and data is updated successfully, return the updated user data
+  //     res.status(200).json({
+  //       user: updatedUser,
+  //       success: true,
+  //       alert: { type: "success", message: "User data updated successfully" },
+  //     });
+
+  //     console.log("User data updated successfully!");
+  //   } catch (error) {
+  //     console.error("Error updating user data:", error);
+  //     res.status(500).json({ error: "Internal server error" });
+  //   }
+  // },
+  async updateUser(req, res) {
+    const { userId } = req.params;
+    const updateData = req.body;
+
+    try {
+      // Find the user by userId
+      let user = await UserModel.findById(userId);
+
+      // Check if user exists
+      if (!user) {
+        return res.status(404).json({
+          error: "User not found",
+          alert: {
+            type: "danger",
+            message: "User with the provided ID not found",
+          },
+        });
+      }
+
+      // Update only the fields that are provided in the request body
+      Object.keys(updateData).forEach((key) => {
+        if (updateData[key]) {
+          user[key] = updateData[key];
+        }
+      });
+
+      // Save the updated user
+      const updatedUser = await user.save();
+
+      // Return the updated user data
+      res.status(200).json({
+        user: updatedUser,
+        success: true,
+        alert: { type: "success", message: "User data updated successfully" },
+      });
+
+      console.log("User data updated successfully!");
+    } catch (error) {
+      console.error("Error updating user data:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   },

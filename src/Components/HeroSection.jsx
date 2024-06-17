@@ -121,15 +121,6 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <Link
-            to="#"
-            className="heroSectionLink my-3 link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-          >
-            Stop by yourself, achieve more together. Start your free trial
-            today!
-            <BsArrowUpRight style={{ fontSize: "20px", opacity: "0.2" }} />
-          </Link>
-
           {/* Element-2 */}
           <h3 className="my-5">Boost Your Research Impact:</h3>
           <div className="accordion my-4" id="accordion_2">
@@ -183,14 +174,6 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-
-          <Link
-            to="#"
-            className="heroSectionLink link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-          >
-            Learn More About SciCollab
-            <BsArrowUpRight style={{ fontSize: "20px", opacity: "0.2" }} />
-          </Link>
         </div>
 
         {/* HeroSection form */}
@@ -205,6 +188,8 @@ export default function HeroSection() {
               left: "55px",
             }}
           >
+            {/* Login Alert */}
+            <div id="loginAlert" className="alert fw-bold" role="alert"></div>
             <h2 className="my-4 mb-5">Create Your Free Account</h2>
             <div className="d-flex justify-content-evenly">
               <Link to="/signup">
@@ -272,8 +257,6 @@ export default function HeroSection() {
               OR
             </h3>
 
-            {/* Login Alert */}
-            <div id="loginAlert" className="alert fw-bold" role="alert"></div>
             <div className="mb-4">
               <label htmlFor="InputEmail1" className="text-ligth form-label">
                 Email address

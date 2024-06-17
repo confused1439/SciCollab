@@ -24,8 +24,8 @@ import {
   InputRightAddon,
   InputLeftAddon,
   Box,
+  Spacer,
 } from "@chakra-ui/react";
-import "../styles/Project.scss";
 import { useParams } from "react-router-dom";
 
 export default function Project() {
@@ -128,7 +128,7 @@ export default function Project() {
         {project.tasks.map((task, taskIndex) => (
           <div key={taskIndex}>
             <p>Name: {task.name}</p>
-            <p>Completed: {task.completed ? "Yes" : "No"}</p>
+            <p>Status: {task.status}</p>
           </div>
         ))}
 
@@ -437,11 +437,13 @@ export default function Project() {
                 mt={6}
               >
                 <FormLabel>Access Control</FormLabel>
-                <Stack direction="row">
+                <Flex>
                   <Radio value="Public">Public</Radio>
+                  <Spacer />
                   <Radio value="Private">Private</Radio>
+                  <Spacer />
                   <Radio value="Collaborator">Collaborator</Radio>
-                </Stack>
+                </Flex>
               </RadioGroup>
 
               {/* Keywords */}
@@ -682,7 +684,7 @@ export default function Project() {
               />
             </FormControl>
 
-            <Flex justify="flex-end" w="full">
+            <Flex justify="flex-end" w="full" my={5}>
               <Button
                 mr={4}
                 onClick={() => setSelectedProject(null)}
@@ -697,6 +699,7 @@ export default function Project() {
               >
                 Cancel
               </Button>
+              <Spacer />
               <Button
                 onClick={handleUpdateProject}
                 sx={{

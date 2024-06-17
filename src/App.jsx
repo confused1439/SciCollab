@@ -1,6 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import Project from "./Components/Project";
-import DataSharing from "./Components/DataSharing";
+import DataVisualization from "./Components/DataVisualization";
 import Header from "./Components/Header";
 import Discussion from "./Components/Discussion";
 import Home from "./Components/Home";
@@ -8,7 +8,7 @@ import Footer from "./Components/Footer";
 import Dummy from "./Components/Dummy";
 import Signup from "./Components/Signup";
 import Profile from "./Components/Profile";
-import Collaborators from "./Components/Collaborators.1";
+import Collaborators from "./Components/Collaborators";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./styles/App.scss";
 
@@ -20,12 +20,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects/:userId" element={<Project />} />
-          <Route path="/data-sharing" element={<DataSharing />} />
+          <Route path="/data-visual/:userId" element={<DataVisualization />} />
           <Route path="/discussion/:userId" element={<Discussion />} />
           <Route path="/collaborators/:userId" element={<Collaborators />} />
           <Route path="/dummy" element={<Dummy />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/user-profile" element={<Profile />} />
+          <Route path="/user-profile/:userId" element={<Profile />} />
           <Route path="*" element={<h1>Page not found 404!</h1>} />
         </Routes>
         <Footer />
