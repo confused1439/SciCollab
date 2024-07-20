@@ -2,20 +2,11 @@
 require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
-const cors = require('cors')
 const mongoose = require("mongoose");
 const app = express();
-const route = require("../Router/routes");
+const route = require("./Router/routes");
 
 app.use(express.json());
-
-app.use(cors(
-  {
-    origin: ["https://sci-collab-swart.vercel.app"],
-    methods: ["POST", "GET"],
-    credentials: true
-  }
-))
 
 app.use(
   session({
