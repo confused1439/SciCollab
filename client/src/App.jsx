@@ -5,7 +5,6 @@ import Header from "./Components/Header";
 import Discussion from "./Components/Discussion";
 import Home from "./Components/Home";
 import Footer from "./Components/Footer";
-import Dummy from "./Components/Dummy";
 import Signup from "./Components/Signup";
 import Profile from "./Components/Profile";
 import Collaborators from "./Components/Collaborators";
@@ -23,7 +22,6 @@ export default function App() {
           <Route path="/data-visual/:userId" element={<DataVisualization />} />
           <Route path="/discussion/:userId" element={<Discussion />} />
           <Route path="/collaborators/:userId" element={<Collaborators />} />
-          <Route path="/dummy" element={<Dummy />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/user-profile/:userId" element={<Profile />} />
           <Route path="*" element={<h1>Page not found 404!</h1>} />
