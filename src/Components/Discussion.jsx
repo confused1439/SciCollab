@@ -38,7 +38,7 @@ export default function Discussion() {
 
   const fetchForumPosts = async () => {
     try {
-      const response = await axios.get("https://sci-collab-api.vercel.app/get-forums");
+      const response = await axios.get("https://sci-collab-z3cw.vercel.app/get-forums");
       setForums(response.data);
     } catch (error) {
       console.error("Error fetching forum posts:", error);
@@ -63,7 +63,7 @@ export default function Discussion() {
     };
 
     try {
-      await axios.post("https://sci-collab-api.vercel.app/create-forum", newForumPost);
+      await axios.post("https://sci-collab-z3cw.vercel.app/create-forum", newForumPost);
       fetchForumPosts();
       setPostContent("");
       setAuthorName("");
@@ -79,7 +79,7 @@ export default function Discussion() {
 
   const handleDeleteForum = async (id) => {
     try {
-      await axios.delete(`https://sci-collab-api.vercel.app/delete-forum/${id}`);
+      await axios.delete(`https://sci-collab-z3cw.vercel.app/delete-forum/${id}`);
       fetchForumPosts();
     } catch (error) {
       console.error("Error deleting forum:", error);
