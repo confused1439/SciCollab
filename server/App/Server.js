@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use(cors(
   {
-    origin: ["https://sci-collab-pi.vercel.app"],
+    origin: ["https://sci-collab-ecru.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true
   }
