@@ -736,19 +736,6 @@ export default function Project() {
         )}
 
         <Flex justify="space-between" w="full">
-          <Button
-            onClick={() => setSelectedProject(null)}
-            sx={{
-              color: "white",
-              backgroundColor: "hsl(337, 93%, 66%)",
-              _hover: {
-                backgroundColor: "hsl(337, 93%, 66%)",
-                textDecoration: "none",
-              },
-            }}
-          >
-            Add new project
-          </Button>
           {selectedProject && (
             <Button
               onClick={() => handleDeleteProject(selectedProject._id)}

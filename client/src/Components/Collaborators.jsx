@@ -127,6 +127,7 @@ export default function Collaborators() {
       className="main"
       style={{
         backgroundColor: "hsl(215, 17%, 20%)",
+        height: "100vh"
       }}
     >
       <Container
@@ -267,7 +268,7 @@ export default function Collaborators() {
               <Center my={5} mb={15} fontSize="2xl" fontWeight="bolder">
                 Collaboration requests
               </Center>
-              <Container>
+              <Container height="100vh">
                 {/* Requests */}
                 {requests.map((request) => (
                   <div key={request._id} boxShadow="2xl">

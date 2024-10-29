@@ -27,8 +27,10 @@ export default function Discussion() {
 
   const fetchAuthorName = async () => {
     try {
-      const response = await axios.get(`/get-user/${userId}`);
+      // const response = await axios.get(`/get-user/${userId}`);
       // Set the userName state using response.data.user.username
+      const response = await axios.get(`http://localhost:3000/get-user/${userId}`);
+
       setAuthorName(response.data.user.username);
       console.log(`username: ${authorName}`);
     } catch (error) {
@@ -38,7 +40,7 @@ export default function Discussion() {
 
   const fetchForumPosts = async () => {
     try {
-      const response = await axios.get("https://sci-collab-z3cw.vercel.app/get-forums");
+      const response = await axios.get("http://localhost:3000/get-forums");
       setForums(response.data);
     } catch (error) {
       console.error("Error fetching forum posts:", error);
@@ -63,7 +65,8 @@ export default function Discussion() {
     };
 
     try {
-      await axios.post("https://sci-collab-z3cw.vercel.app/create-forum", newForumPost);
+      await axios.post("http://localhost:3000/create-forum", newForumPost);
+
       fetchForumPosts();
       setPostContent("");
       setAuthorName("");
@@ -79,7 +82,7 @@ export default function Discussion() {
 
   const handleDeleteForum = async (id) => {
     try {
-      await axios.delete(`https://sci-collab-z3cw.vercel.app/delete-forum/${id}`);
+      await axios.delete(`http://localhost:3000/delete-forum/${id}`);
       fetchForumPosts();
     } catch (error) {
       console.error("Error deleting forum:", error);
@@ -261,7 +264,7 @@ export default function Discussion() {
               transform: "translateX(-50%)",
             }}
           >
-            <span className="input-group-text">With textarea</span>
+            <span className="input-group-text">Content</span>
             <textarea
               className="form-control"
               style={{
